@@ -8,3 +8,9 @@ Web application built in rust with database interaction.
 ## For developpers
 1. Launch docker
 2. cargo shuttle run (if commands fail because of os error 13, make sure current user is in docker group. [See doc](https://phoenixnap.com/kb/docker-permission-denied))
+
+### Frontend
+Go to folder /front and in seperate terminals launch the following commands
+1. npx tailwindcss -i ./input.css -o ./public/tailwind.css --watch
+2. dx serve --port 8000
+
