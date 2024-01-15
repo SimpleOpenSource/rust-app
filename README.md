@@ -1,8 +1,9 @@
 # Rust App
 
 Web application built in rust with database interaction.
+- [Live Here](https://sos-rust-app-api.shuttleapp.rs)
 
-* Backend build with [Actix Web](https://actix.rs/) framework and deployed on [Shuttle](https://www.shuttle.rs/) -> [Here](https://sos-rust-app-api.shuttleapp.rs)
+* Backend build with [Actix Web](https://actix.rs/) framework and deployed on [Shuttle](https://www.shuttle.rs/)
 
 ## For developpers
 1. Launch docker
