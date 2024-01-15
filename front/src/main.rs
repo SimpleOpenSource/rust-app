@@ -1,5 +1,5 @@
 #![allow(non_snake_case)]
-// Import the Dioxus prelude to gain access to the `rsx!` macro and the `Scope` and `Element` types.
+// import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 mod components;
 mod models;
 
@@ -7,13 +7,6 @@ use components::{FilmCard, FilmModal, Footer, Header};
 use dioxus::prelude::*;
 use models::FilmModalVisibility;
 use shared::models::Film;
-
-fn main() {
-    wasm_logger::init(wasm_logger::Config::default().module_prefix("front"));
-    // Launch the web application using the App component as the root.
-    dioxus_web::launch(App);
-}
-
 
 const API_ENDPOINT: &str = "api/v1";
 
@@ -27,7 +20,7 @@ fn films_endpoint() -> String {
 }
 
 async fn get_films() -> Vec<Film> {
-    log::info!("Fetching films from {}", films_endpoint());
+    log::info!("Getting films {}", films_endpoint());
     reqwest::get(&films_endpoint())
         .await
         .unwrap()
@@ -36,13 +29,20 @@ async fn get_films() -> Vec<Film> {
         .unwrap()
 }
 
-// Define a component that renders a div with the text "Hello, world!"
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default().module_prefix("front"));
+    // launch the web app
+    dioxus_web::launch(App);
+}
+
+// create a component that renders a div with the text "Hello, world!"
 fn App(cx: Scope) -> Element {
     use_shared_state_provider(cx, || FilmModalVisibility(false));
     let is_modal_visible = use_shared_state::<FilmModalVisibility>(cx).unwrap();
     let films = use_state::<Option<Vec<Film>>>(cx, || None);
     let selected_film = use_state::<Option<Film>>(cx, || None);
     let force_get_films = use_state(cx, || ());
+
     {
         let films = films.clone();
         use_effect(cx, force_get_films, |_| async move {
@@ -54,6 +54,7 @@ fn App(cx: Scope) -> Element {
             }
         });
     }
+
     let delete_film = move |filmId| {
         let force_get_films = force_get_films.clone();
         cx.spawn({
@@ -74,11 +75,12 @@ fn App(cx: Scope) -> Element {
             }
         });
     };
+
     let create_or_update_film = move |film: Film| {
         let force_get_films = force_get_films.clone();
         let current_selected_film = selected_film.clone();
         let is_modal_visible = is_modal_visible.clone();
-    
+
         cx.spawn({
             async move {
                 let response = if current_selected_film.get().is_some() {
@@ -108,6 +110,7 @@ fn App(cx: Scope) -> Element {
             }
         });
     };
+
     cx.render(rsx! {
         main {
             class: "relative z-0 bg-blue-100 w-screen h-auto min-h-screen flex flex-col justify-start items-stretch",
@@ -128,7 +131,7 @@ fn App(cx: Scope) -> Element {
                                             is_modal_visible.write().0 = true
                                         },
                                         on_delete: move |_| {
-                                            delete_film(film.id);
+                                            delete_film(film.id)
                                         }
                                     }
                                 )
@@ -137,17 +140,17 @@ fn App(cx: Scope) -> Element {
                     )
                 }
             }
-            FilmModal {
-                film: selected_film.get().clone(),
-                on_create_or_update: move |new_film| {
-                    create_or_update_film(new_film);
-                },
-                on_cancel: move |_| {
-                    selected_film.set(None);
-                    is_modal_visible.write().0 = false;
-                }
-            }
             Footer {}
+        }
+        FilmModal {
+            film: selected_film.get().clone(),
+            on_create_or_update: move |new_film| {
+                create_or_update_film(new_film);
+            },
+            on_cancel: move |_| {
+                selected_film.set(None);
+                is_modal_visible.write().0 = false;
+            }
         }
     })
 }
