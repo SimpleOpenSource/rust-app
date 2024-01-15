@@ -1,8 +1,11 @@
 use shared::models::{CreateFilm, Film};
 use uuid::Uuid;
+pub use postgres_film_repository::PostgresFilmRepository;
 
 pub type FilmError = String;
 pub type FilmResult<T> = Result<T, FilmError>;
+
+mod postgres_film_repository;
 
 #[async_trait::async_trait]
 pub trait FilmRepository: Send + Sync + 'static {
