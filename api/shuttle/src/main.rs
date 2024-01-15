@@ -1,5 +1,3 @@
-use api_lib::health::service;
-
 use actix_web::web::ServiceConfig;
 use shuttle_actix_web::ShuttleActixWeb;
 use shuttle_runtime::CustomError;
@@ -17,7 +15,8 @@ async fn actix_web(
     let config = move |cfg: &mut ServiceConfig| {
         cfg
             .app_data(pool)
-            .configure(service);
+            .configure(api_lib::health::service)
+            .configure(api_lib::films::service);
     };
 
 
