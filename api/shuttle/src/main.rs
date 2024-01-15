@@ -14,12 +14,11 @@ async fn actix_web(
 
     let film_repository = api_lib::film_repository::PostgresFilmRepository::new(pool);
     let film_repository = actix_web::web::Data::new(film_repository);
-
     let config = move |cfg: &mut ServiceConfig| {
         cfg
             .app_data(film_repository)
             .configure(api_lib::health::service)
-            .configure(api_lib::films::service);
+            .configure(api_lib::films::service::<api_lib::film_repository::PostgresFilmRepository>);
     };
 
 
