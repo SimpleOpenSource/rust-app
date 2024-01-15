@@ -2,6 +2,7 @@
 members = [
     "api/lib",
     "api/shuttle",
-    "shared"
+    "shared",
+    "front"
 ]
 resolver = "2"
