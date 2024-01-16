@@ -1,4 +1,3 @@
-
 use super::{FilmRepository, FilmResult};
 use shared::models::{CreateFilm, Film};
 pub struct PostgresFilmRepository {

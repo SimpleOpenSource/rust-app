@@ -1,6 +1,6 @@
+pub use postgres_film_repository::PostgresFilmRepository;
 use shared::models::{CreateFilm, Film};
 use uuid::Uuid;
-pub use postgres_film_repository::PostgresFilmRepository;
 
 pub type FilmError = String;
 pub type FilmResult<T> = Result<T, FilmError>;

@@ -14,3 +14,8 @@ Go to folder /front and in seperate terminals launch the following commands
 1. npx tailwindcss -i ./input.css -o ./public/tailwind.css --watch
 2. dx serve --port 8000
 
+
+# Deployment to shuttle
+launch the following commands to build and deploy the project
+1. makers
+2. cargo shuttle deploy
