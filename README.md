@@ -17,5 +17,5 @@ Go to folder /front and in seperate terminals launch the following commands
 
 # Deployment to shuttle
 launch the following commands to build and deploy the project
-1. makers
+1. makers front-build
 2. cargo shuttle deploy
