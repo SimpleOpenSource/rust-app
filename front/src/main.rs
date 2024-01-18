@@ -8,7 +8,7 @@ use dioxus::prelude::*;
 use models::FilmModalVisibility;
 use shared::models::Film;
 
-const API_ENDPOINT: &str = "api/v1";
+const API_ENDPOINT: &str = "https://sos-rust-app-api.shuttleapp.rs/api/v1";
 
 fn films_endpoint() -> String {
     let window = web_sys::window().expect("no global `window` exists");
