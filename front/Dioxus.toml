@@ -17,6 +17,7 @@ asset_dir = "public"
 
 # HTML title tag content
 title = "SimpleOpenSource"
+base_path = "rust-app"
 
 [web.watcher]
 
