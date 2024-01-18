@@ -2,7 +2,7 @@ target/
 Secrets*.toml
 
 # Ignore the static folder
-static
+/api/shuttle/static
 
 dist/
 node_modules/
